@@ -1,0 +1,26 @@
+{
+  "name": "experimento",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thepianist2/experimento.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thepianist2/experimento/issues"
+  },
+  "homepage": "https://github.com/thepianist2/experimento#readme",
+  "dependencies": {
+    "connect": "^3.6.2",
+    "express": "^4.15.3",
+    "opener": "^1.4.3",
+    "serve-static": "^1.12.3",
+    "socket.io": "^2.0.3"
+  }
+}

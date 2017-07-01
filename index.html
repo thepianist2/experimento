@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        //objeto socket en cliente
+        var socket = io();
+
+        socket.on("hola", function(){
+            console.log("Enviando hola desde cliente"+new Date().getSeconds()+':'+new Date().getMilliseconds());
+            socket.emit("hola servidor");
+        });
+
+        socket.on("adios cliente", function(){
+            console.log("Adios cliente recibido "+new Date().getSeconds()+':'+new Date().getMilliseconds());
+        });
+
+    </script>
+	<title></title>
+</head>
+<body>
+    <h1>Hola mundo</h1>
+</body>
+</html>
