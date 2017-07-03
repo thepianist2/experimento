@@ -9,11 +9,11 @@ app.get('/', function(req, res){
 
 io.on('connection', function(client){
     client.emit("hola");
-    console.log('Enviando hola desde servidor'+new Date().getSeconds()+':'+new Date().getMilliseconds());
+    console.log("Enviando hola desde servidor "+new Date().getSeconds()+':'+new Date().getMilliseconds());
     client.on("hola servidor", function(){
-        console.log("Recibido hola desde cliente"+new Date().getSeconds()+':'+new Date().getMilliseconds());
+        console.log("Recibido hola desde cliente "+new Date().getSeconds()+':'+new Date().getMilliseconds());
         client.emit("adios cliente");
-        console.log("Enviando adios desde servidor"+new Date().getSeconds()+':'+new Date().getMilliseconds());
+        console.log("Enviando adios desde servidor "+new Date().getSeconds()+':'+new Date().getMilliseconds());
     })
 });
 
