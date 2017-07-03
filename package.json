@@ -24,6 +24,6 @@
     "socket.io": "^2.0.3"
   },
   "bin": {
-    "test": "bin/test-module.js"
+    "test": "index.js"
   }
 }
