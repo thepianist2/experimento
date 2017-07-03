@@ -22,5 +22,9 @@
     "opener": "^1.4.3",
     "serve-static": "^1.12.3",
     "socket.io": "^2.0.3"
-  }
+  },
+  "bin": {
+    "test": "bin/test-module.js"
+  },
+  "preferGlobal": true
 }
