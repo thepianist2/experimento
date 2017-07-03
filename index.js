@@ -1,11 +1,13 @@
 #!/usr/bin/env node
-
+var express = require('express');
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var opener = require('opener');
 
 
+var pjson = require('./package.json');
+console.log(pjson.version);
 
 console.log("Levantando test!!!");
 
@@ -13,6 +15,8 @@ console.log("Levantando test!!!");
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
+
+app.use(express.static('public'));
 
 io.on('connection', function(client){
     client.emit("hola");
