@@ -4,10 +4,13 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var opener = require('opener');
+var path =  require('path');
 
 
-var pjson = require(__dirname+'/package.json');
-console.log(pjson.version);
+//var pjson = require(__dirname.split(path.sep).pop());
+
+
+console.log(path.sep);
 
 console.log("Levantando test!!!");
 
