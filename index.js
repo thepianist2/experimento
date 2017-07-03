@@ -7,10 +7,10 @@ var opener = require('opener');
 var path =  require('path');
 
 
-//var pjson = require(__dirname.split(path.sep).pop());
+var pjson = require(path.sep+'package.json');
 
 
-console.log(path.sep);
+console.log(pjson.version);
 
 console.log("Levantando test!!!");
 
