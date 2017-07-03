@@ -25,6 +25,5 @@
   },
   "bin": {
     "test": "bin/test-module.js"
-  },
-  "preferGlobal": true
+  }
 }
