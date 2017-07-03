@@ -6,7 +6,7 @@ var io = require('socket.io')(http);
 var opener = require('opener');
 
 
-var pjson = require('./package.json');
+var pjson = require('package.json');
 console.log(pjson.version);
 
 console.log("Levantando test!!!");
