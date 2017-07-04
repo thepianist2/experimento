@@ -12,6 +12,7 @@ var opener = require('opener');
 
 console.log(process.argv[1]);
 console.log(__dirname);
+console.log(path.join(__dirname, "locale"));
 
 
 
