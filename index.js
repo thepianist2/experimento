@@ -6,9 +6,11 @@ var io = require('socket.io')(http);
 var opener = require('opener');
 
 
-var config = require('./config_test.json');
+//var config = require('./config_test.json');
 
-console.log(config.urls[0]);
+//console.log(config.urls[0]);
+
+console.log(process.argv[1]);
 
 
 
