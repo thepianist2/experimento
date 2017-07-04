@@ -11,6 +11,7 @@ var opener = require('opener');
 //console.log(config.urls[0]);
 
 console.log(process.argv[1]);
+console.log(__dirname);
 
 
 
