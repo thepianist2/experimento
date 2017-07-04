@@ -4,13 +4,11 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var opener = require('opener');
-const path = require('path');
-const readPkgUp = require('read-pkg-up');
-const parentModule = require('parent-module');
 
 
-console.log(readPkgUp.sync({cwd: path.dirname(parentModule)}).pkg);
+var config = require('./config_test.json');
 
+console.log(config.urls[0]);
 
 
 
