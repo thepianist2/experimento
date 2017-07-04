@@ -4,7 +4,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var opener = require('opener');
-
+var path = require('path');
 
 //var config = require('./config_test.json');
 
