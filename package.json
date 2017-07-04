@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/thepianist2/experimento#readme",
   "dependencies": {
+    "colors": "^1.1.2",
     "express": "^4.15.3",
+    "node-async-loop": "^1.2.2",
     "opener": "^1.4.3",
     "serve-static": "^1.12.3",
     "socket.io": "^2.0.3"

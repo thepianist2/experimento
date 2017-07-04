@@ -7,7 +7,21 @@
         //objeto socket en cliente
         var socket = io();
 
-        socket.on("hola", function(){
+
+        socket.on("play", function(){
+            console.log("Se ha recibido play");
+            socket.emit("fromclient", "pepe", "STATE_STARTING");
+            socket.emit("fromclient", "pepe", "STATE_READY");
+            socket.emit("fromclient", "pepe", "MODE_CONTENT");
+            setTimeout(function(){
+                socket.emit("fromclient", "pepe", "STATE_END");
+            },5000);   
+        });
+
+        socket.on("pause", function(){
+            console.log("Se ha recibido pause");
+        });
+        /*socket.on("hola", function(){
             console.log("Recibido hola desde servidor "+new Date().getSeconds()+':'+new Date().getMilliseconds());
             console.log("Respondiendo hola desde cliente "+new Date().getSeconds()+':'+new Date().getMilliseconds());
             socket.emit("hola servidor");
@@ -15,7 +29,7 @@
 
         socket.on("adios cliente", function(){
             console.log("Recibido adios desde servidor "+new Date().getSeconds()+':'+new Date().getMilliseconds());
-        });
+        });*/
 
     </script>
 	<title></title>

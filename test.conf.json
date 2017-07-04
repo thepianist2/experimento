@@ -1,0 +1,55 @@
+{
+    "publicPaths": ["public", "pepe"],
+    "defaultTimeout": 60000,
+	"portServer": 3000,
+    "tests": [
+        {
+            "name": "Basic pattern test",
+            "url": "http://localhost:3000/index.html",
+            "scenarios": [
+                {
+                    "action": "play",
+                    "patterns": [
+                        {
+                            "status": "STATE_STARTING",
+                            "required": true
+                        },
+                        {
+                            "status": "STATE_READY",
+                            "required": true
+                        },
+                        {
+                            "status": "MODE_CONTENT",
+                            "required": true
+                        },
+                        {
+                            "status": "STATE_END",
+                            "required": true
+                        }
+                    ]
+                },
+                {
+                    "action": "pause",
+                    "patterns": [
+                        {
+                            "status": "STATE_STARTING",
+                            "required": true
+                        },
+                        {
+                            "status": "STATE_READY",
+                            "required": true
+                        },
+                        {
+                            "status": "MODE_CONTENT",
+                            "required": true
+                        },
+                        {
+                            "status": "STATE_END",
+                            "required": true
+                        }
+                    ]
+                }				
+            ]
+        }
+    ]
+}
