@@ -4,16 +4,10 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var opener = require('opener');
-var path = require('path');
 
-//var config = require('./config_test.json');
+var pgk = require(process.cwd()+'package.json');
 
-//console.log(config.urls[0]);
-
-console.log(process.argv[1]);
-console.log(__dirname);
-console.log(path.join(__dirname, "locale"));
-console.log(process.cwd());
+console.log(pgk.version);
 
 
 
