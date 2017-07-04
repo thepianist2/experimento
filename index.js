@@ -5,7 +5,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var opener = require('opener');
 
-var pgk = require(process.cwd()+'package.json');
+var pgk = require(process.cwd()+'/package.json');
 
 console.log(pgk.version);
 
