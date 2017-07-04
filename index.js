@@ -4,13 +4,15 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var opener = require('opener');
-var path =  require('path');
+const path = require('path');
+const readPkgUp = require('read-pkg-up');
+const parentModule = require('parent-module');
 
 
-var pjson = require(path.sep+'package.json');
+console.log(readPkgUp.sync({cwd: path.dirname(parentModule)}).pkg);
 
 
-console.log(pjson.version);
+
 
 console.log("Levantando test!!!");
 

@@ -20,6 +20,8 @@
     "connect": "^3.6.2",
     "express": "^4.15.3",
     "opener": "^1.4.3",
+    "parent-module": "^0.1.0",
+    "read-pkg-up": "^2.0.0",
     "serve-static": "^1.12.3",
     "socket.io": "^2.0.3"
   },
