@@ -33,6 +33,9 @@ configFile.tests.forEach(function(test){
       if(index===0){
         //check patterns test
         client.on("fromclient", function(clase, message, clientID){
+
+          console.log(clientID);
+          console.log(test.idClient);
           if(test.idClient===clientID){
 
             console.log(colors.cyan("RESPONSE RECEIVED: "+clase+' '+message.green));
