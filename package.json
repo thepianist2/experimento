@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/thepianist2/experimento#readme",
   "dependencies": {
+    "cli-spinner": "^0.2.6",
     "colors": "^1.1.2",
     "express": "^4.15.3",
     "opener": "^1.4.3",

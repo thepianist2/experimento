@@ -35,7 +35,7 @@ configFile.tests.forEach(function(test){
         if(index===0){
           //check patterns test
           client.on("fromclient", function(clase, message){
-            console.log(colors.cyan("RESPONSE RECEIVED: "+message.green));
+            console.log(colors.cyan("RESPONSE RECEIVED: "+clase+' '+message.green));
             resultPattern.push(message);
             //all patterns they should be passed
             if(message===scenario.finisher){
