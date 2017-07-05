@@ -11,11 +11,13 @@ var configFile = require(process.cwd()+'/test.conf.json');
 
 
 
-configFile.publicPaths.push(process.cwd());
+app.use(express.static(process.cwd()));
 //allow paths publics
 configFile.publicPaths.forEach(function(value){
+  console.log("path: "+process.cwd()+'/'+value);
   app.use(express.static(process.cwd()+'/'+value));
 });
+
 
 //executing test array
 configFile.tests.forEach(function(test){
