@@ -23,8 +23,6 @@ configFile.tests.forEach(function(test){
 
   console.log(colors.cyan("EXECUTING TEST: "+test.name.green));
   io.on('connection', function(client){
-    client.emit('idClient', client.id);
-    test.idClient = client.id;
     var resultPattern = [];
     test.scenarios.forEach(function(scenario, index){
       console.log(colors.cyan("SENDING ACTION TO CLIENT: "+scenario.action.green));
@@ -32,39 +30,29 @@ configFile.tests.forEach(function(test){
       //listener fromclient only one time
       if(index===0){
         //check patterns test
-        client.on("fromclient", function(clase, message, clientID){
-
-          console.log(clientID);
-          console.log(test.idClient);
-          if(test.idClient===clientID){
-
-            console.log(colors.cyan("RESPONSE RECEIVED: "+clase+' '+message.green));
-            resultPattern.push(message);
-            //all patterns they should be passed
-            if(message===scenario.finisher){
-              //get resultPattern compared with waiting pattern
-              filterResultPattern(scenario.patterns, resultPattern, (filterResult)=>{
-                //compare the filter pattern with waitign pattern
-                if(filterResult.every(function(results, i) {return results === scenario.patterns[i].status; })){
-                  console.log(colors.green("THE TEST \'"+ test.name +"\' PASSED SUCCESSFULLY !!"));
-                  resultPattern = [];
-                }else{
-                  console.log("Result match pattern: \'"+filterResult+"\'");
-                  console.log("Waiting pattern: \'"+scenario.patterns.map((pattern)=>{return pattern.status})+"\'");
-                  resultPattern = [];
-                  //throw new TypeError("THE TEST \'"+ test.name +"\' FAILED !!");
-                  console.log(colors.red("THE TEST \'"+ test.name +"\' FAILED !!"));
-                  //setTimeout(() => process.exit(), 0);
-                }
-              });
-            }else{
-
-            }
-
+        client.on("fromclient", function(clase, message){
+          console.log(colors.cyan("RESPONSE RECEIVED: "+clase+' '+message.green));
+          resultPattern.push(message);
+          //all patterns they should be passed
+          if(message===scenario.finisher){
+            //get resultPattern compared with waiting pattern
+            filterResultPattern(scenario.patterns, resultPattern, (filterResult)=>{
+              //compare the filter pattern with waitign pattern
+              if(filterResult.every(function(results, i) {return results === scenario.patterns[i].status; })){
+                console.log(colors.green("THE TEST \'"+ test.name +"\' PASSED SUCCESSFULLY !!"));
+                resultPattern = [];
+              }else{
+                console.log("Result match pattern: \'"+filterResult+"\'");
+                console.log("Waiting pattern: \'"+scenario.patterns.map((pattern)=>{return pattern.status})+"\'");
+                resultPattern = [];
+                //throw new TypeError("THE TEST \'"+ test.name +"\' FAILED !!");
+                console.log(colors.red("THE TEST \'"+ test.name +"\' FAILED !!"));
+                //setTimeout(() => process.exit(), 0);
+              }
+            });
           }else{
-            console.log(colors.red("CLIENT NOT HAVE SOCKET ID"));
-          }
 
+          }
         });
       }
     });
