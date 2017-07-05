@@ -6,15 +6,20 @@
     <script>
         //objeto socket en cliente
         var socket = io();
+        var clientID;
+
+        socket.on("idClient", function(idClient){
+            clientID = idClient;
+        });
 
 
         socket.on("play", function(){
-            console.log("Se ha recibido play");
-            socket.emit("fromclient", "pepe", "STATE_STARTING");
-            socket.emit("fromclient", "pepe", "STATE_READY");
-            socket.emit("fromclient", "pepe", "MODE_CONTENT");
+            console.log("Se ha recibido play "+clientID);
+            socket.emit("fromclient", "pepe", "STATE_STARTING", clientID);
+            socket.emit("fromclient", "pepe", "STATE_READY", clientID);
+            socket.emit("fromclient", "pepe", "MODE_CONTENT", clientID);
             setTimeout(function(){
-                socket.emit("fromclient", "pepe", "STATE_END");
+                socket.emit("fromclient", "pepe", "STATE_END", clientID);
             },5000);   
         });
 
