@@ -6,18 +6,14 @@ var io = require('socket.io')(http);
 var opener = require('opener');
 var colors = require('colors');
 
-
 var configFile = require(process.cwd()+'/test.conf.json');
-
 
 
 app.use(express.static(process.cwd()));
 //allow paths publics
 configFile.publicPaths.forEach(function(value){
-  console.log("path: "+process.cwd()+'/'+value);
   app.use(express.static(process.cwd()+'/'+value));
 });
-
 
 //executing test array
 configFile.tests.forEach(function(test){
