@@ -6,7 +6,7 @@ var io = require('socket.io')(http);
 var opener = require('opener');
 var colors = require('colors');
 var asyncLoop = require('node-async-loop');
-var resultPattern = [];
+
 
 var configFile = require(process.cwd()+'/test.conf.json');
 
@@ -19,6 +19,7 @@ configFile.publicPaths.forEach(function(value){
 
 //executing test array
 configFile.tests.forEach(function(test){
+  var resultPattern = [];
   console.log(colors.cyan("OPENING URL: "+test.url.green+"...".green));
   opener(test.url);
 
@@ -34,13 +35,14 @@ configFile.tests.forEach(function(test){
             console.log(colors.cyan("RESPONSE RECEIVED: "+message.green));
             resultPattern.push(message);
             //all patterns they should be passed
-            if(resultPattern.length===scenario.patterns.length){
-              //compare test result with pattern expect
-              if(resultPattern.every(function(results, i) {return results === scenario.patterns[i].status; })){
-                console.log("Ha pasado correctamente");
-              }else{
-                console.log("Ha Fallado");
-              }
+            if(message===scenario.finisher){
+              filterResultPattern(scenario.patterns, resultPattern, (filterResult)=>{
+                if(filterResult.every(function(results, i) {return results === scenario.patterns[i].status; })){
+                  console.log("Ha pasado correctamente");
+                }else{
+                  console.log("Ha Fallado");
+                }
+              });
             }
           });
         }
@@ -48,6 +50,12 @@ configFile.tests.forEach(function(test){
     });
 
 });
+
+
+//compare result pattern and filter with the waiting pattern
+function filterResultPattern(pattern, resultPattern, cb){
+  cb(resultPattern.filter((result, index)=>{ return typeof (pattern.find((element)=>{ return element.status === result;})) !== 'undefined';}));
+}
 
 
 http.listen(configFile.portServer, function(){
