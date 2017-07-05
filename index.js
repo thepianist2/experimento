@@ -47,7 +47,7 @@ configFile.tests.forEach(function(test){
                 resultPattern = [];
                 //throw new TypeError("THE TEST \'"+ test.name +"\' FAILED !!");
                 console.log(colors.red("THE TEST \'"+ test.name +"\' FAILED !!"));
-                setTimeout(() => process.exit(), 0);
+                //setTimeout(() => process.exit(), 0);
               }
             });
           }else{
