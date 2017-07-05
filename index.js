@@ -42,8 +42,8 @@ configFile.tests.forEach(function(test){
                 console.log(colors.green("THE TEST \'"+ test.name +"\' PASSED SUCCESSFULLY !!"));
                 resultPattern = [];
               }else{
-                console.log("Result pattern: \'"+resultPattern+"\'");
-                console.log("Result pattern: \'"+scenario.patterns.map((pattern)=>{return pattern.status})+"\'");
+                console.log("Result match pattern: \'"+filterResult+"\'");
+                console.log("Waiting pattern: \'"+scenario.patterns.map((pattern)=>{return pattern.status})+"\'");
                 resultPattern = [];
                 //throw new TypeError("THE TEST \'"+ test.name +"\' FAILED !!");
                 console.log(colors.red("THE TEST \'"+ test.name +"\' FAILED !!"));
