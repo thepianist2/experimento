@@ -19,12 +19,13 @@ configFile.publicPaths.forEach(function(value){
 
 //executing test array
 configFile.tests.forEach(function(test){
-  var resultPattern = [];
+  
   console.log(colors.cyan("OPENING URL: "+test.url.green+"...".green));
   opener(test.url);
 
   console.log(colors.cyan("EXECUTING TEST: "+test.name.green));
     io.on('connection', function(client){
+      var resultPattern = [];
       test.scenarios.forEach(function(scenario, index){
         console.log(colors.cyan("SENDING ACTION TO CLIENT: "+scenario.action.green));
         client.emit(scenario.action);
@@ -36,11 +37,15 @@ configFile.tests.forEach(function(test){
             resultPattern.push(message);
             //all patterns they should be passed
             if(message===scenario.finisher){
+              //get resultPattern compared with waiting pattern
               filterResultPattern(scenario.patterns, resultPattern, (filterResult)=>{
+                //compare the filter pattern with waitign pattern
                 if(filterResult.every(function(results, i) {return results === scenario.patterns[i].status; })){
-                  console.log("Ha pasado correctamente");
+                  console.log(colors.green("THE TEST "+ test.name +" PASSED SUCCESSFULLY !!"));
+                  resultPattern = [];
                 }else{
-                  console.log("Ha Fallado");
+                  console.log(colors.red("TEST ERROR"));
+                  resultPattern = [];
                 }
               });
             }
