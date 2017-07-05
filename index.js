@@ -11,9 +11,10 @@ var configFile = require(process.cwd()+'/test.conf.json');
 
 
 
+configFile.publicPaths.push(process.cwd());
 //allow paths publics
 configFile.publicPaths.forEach(function(value){
-  app.use(express.static(value));
+  app.use(express.static(process.cwd()+'/'+value));
 });
 
 //executing test array
@@ -40,13 +41,16 @@ configFile.tests.forEach(function(test){
               filterResultPattern(scenario.patterns, resultPattern, (filterResult)=>{
                 //compare the filter pattern with waitign pattern
                 if(filterResult.every(function(results, i) {return results === scenario.patterns[i].status; })){
-                  console.log(colors.green("THE TEST "+ test.name +" PASSED SUCCESSFULLY !!"));
+                  console.log(colors.green("THE TEST \'"+ test.name +"\' PASSED SUCCESSFULLY !!"));
                   resultPattern = [];
                 }else{
-                  console.log(colors.red("TEST ERROR"));
                   resultPattern = [];
+                  //throw new TypeError("THE TEST \'"+ test.name +"\' FAILED !!");
+                  console.log(colors.red("THE TEST \'"+ test.name +"\' FAILED !!"));
                 }
               });
+            }else{
+
             }
           });
         }
