@@ -22,38 +22,40 @@ configFile.tests.forEach(function(test){
   opener(test.url);
 
   console.log(colors.cyan("EXECUTING TEST: "+test.name.green));
-    io.on('connection', function(client){
-      var resultPattern = [];
-      test.scenarios.forEach(function(scenario, index){
-        console.log(colors.cyan("SENDING ACTION TO CLIENT: "+scenario.action.green));
-        client.emit(scenario.action);
-        //listener fromclient only one time
-        if(index===0){
-          //check patterns test
-          client.on("fromclient", function(clase, message){
-            console.log(colors.cyan("RESPONSE RECEIVED: "+clase+' '+message.green));
-            resultPattern.push(message);
-            //all patterns they should be passed
-            if(message===scenario.finisher){
-              //get resultPattern compared with waiting pattern
-              filterResultPattern(scenario.patterns, resultPattern, (filterResult)=>{
-                //compare the filter pattern with waitign pattern
-                if(filterResult.every(function(results, i) {return results === scenario.patterns[i].status; })){
-                  console.log(colors.green("THE TEST \'"+ test.name +"\' PASSED SUCCESSFULLY !!"));
-                  resultPattern = [];
-                }else{
-                  resultPattern = [];
-                  //throw new TypeError("THE TEST \'"+ test.name +"\' FAILED !!");
-                  console.log(colors.red("THE TEST \'"+ test.name +"\' FAILED !!"));
-                }
-              });
-            }else{
+  io.on('connection', function(client){
+    var resultPattern = [];
+    test.scenarios.forEach(function(scenario, index){
+      console.log(colors.cyan("SENDING ACTION TO CLIENT: "+scenario.action.green));
+      client.emit(scenario.action);
+      //listener fromclient only one time
+      if(index===0){
+        //check patterns test
+        client.on("fromclient", function(clase, message){
+          console.log(colors.cyan("RESPONSE RECEIVED: "+clase+' '+message.green));
+          resultPattern.push(message);
+          //all patterns they should be passed
+          if(message===scenario.finisher){
+            //get resultPattern compared with waiting pattern
+            filterResultPattern(scenario.patterns, resultPattern, (filterResult)=>{
+              //compare the filter pattern with waitign pattern
+              if(filterResult.every(function(results, i) {return results === scenario.patterns[i].status; })){
+                console.log(colors.green("THE TEST \'"+ test.name +"\' PASSED SUCCESSFULLY !!"));
+                resultPattern = [];
+              }else{
+                console.log(filterResult);
+                console.log(scenario.patterns);
+                resultPattern = [];
+                //throw new TypeError("THE TEST \'"+ test.name +"\' FAILED !!");
+                console.log(colors.red("THE TEST \'"+ test.name +"\' FAILED !!"));
+              }
+            });
+          }else{
 
-            }
-          });
-        }
-      });
+          }
+        });
+      }
     });
+  });
 
 });
 
