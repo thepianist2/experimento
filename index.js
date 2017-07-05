@@ -5,7 +5,6 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var opener = require('opener');
 var colors = require('colors');
-var asyncLoop = require('node-async-loop');
 
 
 var configFile = require(process.cwd()+'/test.conf.json');
