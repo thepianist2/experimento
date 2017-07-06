@@ -22,7 +22,6 @@ const exit = () => {
 
 
 function executeTest(test){
-
   console.log(colors.cyan("OPENING URL: "+test.url.green+"...".green));
   opener(test.url);
 
@@ -43,25 +42,27 @@ function executeTest(test){
             //get resultPattern compared with waiting pattern
             filterResultPattern(scenario.patterns, resultPattern, (filterResult)=>{
               //compare the filter pattern with waitign pattern
-              if(filterResult.every(function(results, i) {return results === scenario.patterns[i].status; })){
-                console.log(colors.green("THE TEST \'"+ test.name +"\' PASSED SUCCESSFULLY !!"));
-                resultPattern = [];
-                client.emit('close');
-                client.disconnect(true);
-                //exit();
-                executeNextTest();
-              }else{
-                console.log("Result match pattern: \'"+filterResult+"\'");
-                console.log("Waiting pattern: \'"+scenario.patterns.map((pattern)=>{return pattern.status})+"\'");
-                resultPattern = [];
-                //throw new TypeError("THE TEST \'"+ test.name +"\' FAILED !!");
-                console.log(colors.red("THE TEST \'"+ test.name +"\' FAILED !!"));
-                //setTimeout(() => process.exit(), 0);
-                client.emit('close');
-                exit();
-                client.disconnect(true);
-                executeNextTest();
-              }
+              verifyPattern(scenario.patterns, resultPattern, (result)=>{
+                if(result){
+                  console.log(colors.green("THE TEST \'"+ test.name +"\' PASSED SUCCESSFULLY !!"));
+                  resultPattern = [];
+                  client.emit('close');
+                  client.disconnect(true);
+                  //exit();
+                  executeNextTest();
+                }else{
+                  console.log("Result match pattern: \'"+filterResult+"\'");
+                  console.log("Waiting pattern: \'"+scenario.patterns.map((pattern)=>{return pattern.status})+"\'");
+                  resultPattern = [];
+                  //throw new TypeError("THE TEST \'"+ test.name +"\' FAILED !!");
+                  console.log(colors.red("THE TEST \'"+ test.name +"\' FAILED !!"));
+                  //setTimeout(() => process.exit(), 0);
+                  client.emit('close');
+                  exit();
+                  client.disconnect(true);
+                  executeNextTest();
+                }
+              });
             });
           }
         });
@@ -88,6 +89,19 @@ function executeNextTest(){
     console.log("Todos los test han finalizado");
     exit();
   }
+}
+
+
+// compare result pattern and filter with the waiting pattern
+function verifyPattern(patronEsperado, patronResultado, cb) {
+  const patronFiltrado = patronResultado.filter(
+    result =>
+      typeof patronEsperado.find(element => element.status === result) !== 'undefined'
+  );
+  cb(
+    patronEsperado.filter((patron, index) => patron.status === patronFiltrado[index])
+      .length === patronEsperado.length
+  );
 }
 
 
