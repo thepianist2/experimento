@@ -8,14 +8,13 @@
         var socket = io();
 
 
-
-            socket.emit("fromclient", "pepe", "STATE_STARTING");
-            socket.emit("fromclient", "pepe", "STATE_READY");
-            socket.emit("fromclient", "pepe", "MODE_CONTENT");
+        //socket.on("play", function(){
+            //console.log("Se ha recibido play");
+            socket.emit("fromclient", "papa", "MODE_CONTENT");
             setTimeout(function(){
-                socket.emit("fromclient", "pepe", "STATE_END");
+                socket.emit("fromclient", "papa", "MODE_NULL");
             },5000);   
-
+        //});
 
 
         socket.on("close", function(){

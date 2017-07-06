@@ -5,6 +5,26 @@
     "tests": [
         {
             "name": "Basic pattern test",
+            "url": "http://localhost:3000/index2.html",
+            "scenarios": [
+                {
+                    "action": "play",
+					"finisher": "MODE_NULL",
+                    "patterns": [
+                        {
+                            "status": "MODE_CONTENT",
+                            "required": true
+                        },
+                        {
+                            "status": "MODE_NULL",
+                            "required": true
+                        }
+                    ]
+                }				
+            ]
+        },			
+        {
+            "name": "Basic pattern test",
             "url": "http://localhost:3000/index.html",
             "scenarios": [
                 {
@@ -31,5 +51,6 @@
                 }				
             ]
         }
+	
     ]
 }
